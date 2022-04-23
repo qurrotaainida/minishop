@@ -2,9 +2,11 @@ const reducer = (state = [], action) => {
     switch (action.type) {
         case 'addCartItem':
             {
+                // payload: id, title, price
                 const newState = [...state]
-                const itemIndex = newState.finfIndex( item => item.id === action.payload.id )
-                if ( itemIndex < 0 ){
+                // cek id is exist in cart
+                const itemIndex = newState.findIndex( item => item.id === action.payload.id )
+                if ( itemIndex < 0 ) {
                     newState.push({
                         id: action.payload.id,
                         title: action.payload.title,
@@ -14,25 +16,25 @@ const reducer = (state = [], action) => {
                 } else {
                     newState[itemIndex].count += 1
                 }
-                console.log(newState)
                 return newState
             }
         case 'lessCartItem':
             {
+                // payload: id
                 const newState = [...state]
                 const itemIndex = newState.findIndex( item => item.id === action.payload.id )
-                if ( itemIndex[itemIndex].count <= 1 ){
+                if ( newState[itemIndex].count <= 1 ) {
                     newState.splice(itemIndex, 1)
                 } else {
                     newState[itemIndex].count -= 1
                 }
-                console.log(newState)
                 return newState
             }
-        case 'removeCardItem':
+        case 'removeCartItem':
             {
+                // payload: id
                 const newState = [...state]
-                newState.splice(action.payload.id, 1)
+                newState.splice(action.payload.index, 1)
                 return newState
             }
         default:
